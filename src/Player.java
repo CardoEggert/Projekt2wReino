@@ -9,7 +9,6 @@ public class Player extends WorldObject {
   private Point<Double> lastPos;
   private Point<Double> speed; // Objekti kiirus
   private Point<Double> accel; // Objekti kiirendus
-  private double friction; // Objekti takistus, 0-1 0=puudub 1=suurim
   private boolean onGround; // Kas objekt puudutab maapinda
 
   public Player(double x, double y) {
@@ -18,7 +17,6 @@ public class Player extends WorldObject {
     lastPos = getPos();
     setAccel(0, 0);
     setSpeed(0, 0);
-    setFriction(0.6);
   }
 
   public static void setWorld(World world) {
@@ -53,14 +51,6 @@ public class Player extends WorldObject {
     this.speed = new Point<>(x, y);
   }
 
-  public double getFriction() {
-    return friction;
-  }
-
-  public void setFriction(double friction) {
-    this.friction = Math.max(0, Math.min(friction, 1));
-  }
-
   public boolean onGround() {
     return onGround;
   }
@@ -86,6 +76,7 @@ public class Player extends WorldObject {
     Tagastab, kui palju mängija tegelikult liikus.
      */
     lastPos = getPos();
+    double friction = 0;
 
     // Lisa kiirusele kiirendus
     setSpeed(getSpeed().x + getAccel().x, getSpeed().y + getAccel().y);
@@ -120,6 +111,7 @@ public class Player extends WorldObject {
             yDone = true;
             if (getY() < b.getY()) {
               gc.fillRect(b.getX(), b.getY(), b.size, b.size);
+              friction = b.getFriction();
               onGround = true;
             }
             break;

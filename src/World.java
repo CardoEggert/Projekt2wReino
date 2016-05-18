@@ -1,51 +1,61 @@
+import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class World {
   List<Block> blocks = new ArrayList<>();
-  int x = -1;
-  int lastX;
-  int y = 0;
+  Point<Integer> worldSize = new Point<>(0,0);
+  int gridSize;
 
   public World(String level, int gridSize) {
-    java.io.File fail = new java.io.File(level + ".txt");
-    java.util.Scanner sc = null;
-    try {
-      sc = new java.util.Scanner(fail, "UTF-8");
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
+    this.gridSize = gridSize;
 
-    while (sc.hasNextLine()) {
-      String rida = sc.nextLine();
-      for (char c : rida.toCharArray()) {
-        if (c == '#') {
-          blocks.add(new Block(x * gridSize, y * gridSize, gridSize));
+    File fail = new java.io.File(level + ".txt");
+    try (Scanner sc = new Scanner(fail, "UTF-8")) {
+      int x = -1;
+      int y = 0;
+      while (sc.hasNextLine()) {
+        for (char c : sc.nextLine().toCharArray()) {
+          if (c == '#') {
+            blocks.add(new Block(x * gridSize, y * gridSize, gridSize));
+          }
+          x++;
         }
-        x++;
+        worldSize.x = x*gridSize;
+        x = 0;
+        y++;
       }
-      lastX = x;
-
-      x = 0;
-      y++;
+      worldSize.y = y*gridSize;
+    } catch (FileNotFoundException e) {
+      System.out.println("Faili ei leitud! (" + level + ")");
+      Platform.exit();
     }
 
   }
 
+  public Point<Integer> getWorldSize() {
+    return worldSize;
+  }
 
-  public int getY() {
-    return y;
+  public int getWorldWidth() {
+    return worldSize.x;
+  }
+
+  public int getWorldHeight() {
+    return worldSize.y;
+  }
+
+  public int getGridSize() {
+    return gridSize;
   }
 
   public List<Block> getBlocks() {
     return blocks;
-  }
-
-  public int getLastX() {
-    return lastX;
   }
 
   public void draw(GraphicsContext gc) {
@@ -53,7 +63,7 @@ public class World {
     gc.setLineDashes(4);
     gc.setLineDashOffset(2);
     for (Block b : getBlocks()) {
-      gc.strokeRect(b.getX(), b.getY(), b.size, b.size);
+      b.draw(gc);
     }
   }
 

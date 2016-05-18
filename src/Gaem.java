@@ -17,14 +17,19 @@ import java.util.List;
 import java.util.Random;
 
 public class Gaem extends Application {
+
   final boolean[] upPressed = {false};
   final boolean[] leftPressed = {false};
   final boolean[] rightPressed = {false};
-  Stage primaryStage;
-  GraphicsContext gc;
-  Integer blockSize = 32;
+
   double mouseX = 260;
   double mouseY = 160;
+
+  Stage primaryStage;
+  GraphicsContext gc;
+
+  int blockSize = 32;
+
   List<ColorPoint> points = new ArrayList<>();
   double t = 0;
 
@@ -42,7 +47,7 @@ public class Gaem extends Application {
     Scene theScene = new Scene(root);
     primaryStage.setScene(theScene);
 
-    Canvas canvas = new Canvas(world.getLastX() * blockSize, world.getY() * blockSize);
+    Canvas canvas = new Canvas(world.getWorldWidth(), world.getWorldHeight());
     root.getChildren().add(canvas);
     gc = canvas.getGraphicsContext2D();
   }
@@ -153,7 +158,7 @@ public class Gaem extends Application {
 
         // Tausta joonistamine
         gc.setFill(Color.WHITE);
-        gc.fillRect(0, 0, world.getLastX() * blockSize, world.getY() * blockSize);
+        gc.fillRect(0, 0, world.getWorldWidth(), world.getWorldHeight());
         gc.setFill(Color.BLACK);
 
         // Mängija liigutamine
