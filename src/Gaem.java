@@ -143,8 +143,10 @@ public class Gaem extends Application {
     Player.setWorld(world);
     Player player = new Player(200, 200);
 
+    final int maxage = 100;
+    ColorPoint.maxage = maxage;
+
     AnimationTimer at = new AnimationTimer() {
-      final int maxage = 100;
       long last_time = System.nanoTime();
 
       public void handle(long now) {
@@ -175,10 +177,7 @@ public class Gaem extends Application {
           if (p.age > maxage) {
             toRemove.add(p);
           }
-          gc.setFill(p.color.deriveColor(0, 1, 1,
-                  ((float) maxage - p.age) / (float) maxage
-          ));
-          gc.fillOval(p.getX(), p.getY(), 12, 12);
+          p.draw(gc);
         }
 
         for (ColorPoint p : toRemove) {
