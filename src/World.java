@@ -23,6 +23,8 @@ public class World {
         for (char c : sc.nextLine().toCharArray()) {
           if (c == '#') {
             blocks.add(new Block(x * gridSize, y * gridSize, gridSize));
+          } else if (c == '@') {
+            blocks.add(new BlockIce(x * gridSize, y * gridSize, gridSize));
           }
           x++;
         }
