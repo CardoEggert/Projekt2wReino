@@ -17,7 +17,7 @@ public class Block extends WorldTile {
 
   public Block(int x, int y, int size, double friction) {
     this(x, y, size);
-    this.friction = friction;
+    setFriction(friction);
   }
 
   public double getFriction() {
