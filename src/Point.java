@@ -1,5 +1,3 @@
-
-
 public class Point<C extends Number> {
   /*
   Klass 2D punktidele/vektorile

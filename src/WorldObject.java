@@ -1,14 +1,12 @@
-
-
 abstract public class WorldObject {
   /*
   Maailmas paiknevad liikuvad objektid, mis võivad asuda suvalises kohas.
    */
   private Point<Double> pos;
-  private BoundingBox box = new BoundingBox(0,0,0,0);
+  private BoundingBox box = new BoundingBox(0, 0, 0, 0);
 
   public WorldObject(double x, double y) {
-    setPos(x,y);
+    setPos(x, y);
   }
 
   public BoundingBox getBoundingBox() {
@@ -30,7 +28,7 @@ abstract public class WorldObject {
   }
 
   public void setPos(double x, double y) {
-    setPos(new Point<>(x,y));
+    setPos(new Point<>(x, y));
   }
 
   public double getX() {

@@ -1,5 +1,3 @@
-
-
 abstract public class WorldTile {
   /*
   Maailmas paiknevad staatilised objektid, mis ei liigu.
@@ -7,7 +5,7 @@ abstract public class WorldTile {
   final Point<Integer> pos;
 
   public WorldTile(int x, int y) {
-    this.pos = new Point<>(x,y);
+    this.pos = new Point<>(x, y);
   }
 
   public int getX() {

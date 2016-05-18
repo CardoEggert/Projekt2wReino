@@ -1,25 +1,23 @@
-
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class Player extends WorldObject {
+  static World world;
+  static GraphicsContext gc;
+  private final double g = 9.8 / 5;
+  private final double airFriction = 0.01; // Objekti takistus õhus
   private Point<Double> lastPos;
   private Point<Double> speed; // Objekti kiirus
   private Point<Double> accel; // Objekti kiirendus
-  private final double g = 9.8 / 5;
   private double friction; // Objekti takistus, 0-1 0=puudub 1=suurim
-  private final double airFriction = 0.01; // Objekti takistus õhus
   private boolean onGround; // Kas objekt puudutab maapinda
-  static World world;
-  static GraphicsContext gc;
 
   public Player(double x, double y) {
     super(x, y);
-    setBoundingBox(new BoundingBox((int)x,(int)y, 12,12));
+    setBoundingBox(new BoundingBox((int) x, (int) y, 12, 12));
     lastPos = getPos();
-    setAccel(0,0);
-    setSpeed(0,0);
+    setAccel(0, 0);
+    setSpeed(0, 0);
     setFriction(0.6);
   }
 
@@ -32,11 +30,11 @@ public class Player extends WorldObject {
   }
 
   public void setX(double x) {
-    setPos(x,getY());
+    setPos(x, getY());
   }
 
   public void setY(double y) {
-    setPos(getX(),y);
+    setPos(getX(), y);
   }
 
   public Point<Double> getAccel() {
@@ -44,7 +42,7 @@ public class Player extends WorldObject {
   }
 
   public void setAccel(double x, double y) {
-    this.accel = new Point<>(x,y + g);
+    this.accel = new Point<>(x, y + g);
   }
 
   public Point<Double> getSpeed() {
@@ -52,7 +50,7 @@ public class Player extends WorldObject {
   }
 
   public void setSpeed(double x, double y) {
-    this.speed =  new Point<>(x,y);
+    this.speed = new Point<>(x, y);
   }
 
   public double getFriction() {
@@ -73,13 +71,13 @@ public class Player extends WorldObject {
 
   public void draw(GraphicsContext gc, double t) {
     gc.setFill(Color.rgb(
-            (int)(255*Math.abs(Math.cos(t))),
-            (int)(220*Math.abs(Math.cos(t*0.6))),
-            (int)(255*Math.abs(Math.sin(t))),
+            (int) (255 * Math.abs(Math.cos(t))),
+            (int) (220 * Math.abs(Math.cos(t * 0.6))),
+            (int) (255 * Math.abs(Math.sin(t))),
             1));
     gc.setLineDashes(0);
-    gc.fillOval( getX(), getY(), 12,12 );
-    gc.strokeOval( getX(), getY(), 12,12 );
+    gc.fillOval(getX(), getY(), 12, 12);
+    gc.strokeOval(getX(), getY(), 12, 12);
   }
 
   public Point<Double> move() {
@@ -99,14 +97,14 @@ public class Player extends WorldObject {
     // Alusta kokkupõrgete kontrollimist
     boolean xDone = false;
     boolean yDone = false;
-    double d = 1/delta;
+    double d = 1 / delta;
     onGround = false;
 
     for (int i = 0; i < delta; i++) {
       if (!xDone) {
         double x = getX();
         setX(x + speed.x * d);
-        for (Block b : world.getBlocks() )
+        for (Block b : world.getBlocks())
           if (b.getBoundingBox().collidesWith(this)) {
             setX(x);
             xDone = true;
@@ -116,7 +114,7 @@ public class Player extends WorldObject {
       if (!yDone) {
         double y = getY();
         setY(y + speed.y * d);
-        for (Block b : world.getBlocks() )
+        for (Block b : world.getBlocks())
           if (b.getBoundingBox().collidesWith(this)) {
             setY(y);
             yDone = true;
@@ -131,15 +129,15 @@ public class Player extends WorldObject {
         break;
     }
 
-    double deltaX = Math.round(100*(getX() - getLastPos().x))/100.0;
-    double deltaY = Math.round(100*(getY() - getLastPos().y))/100.0;
+    double deltaX = Math.round(100 * (getX() - getLastPos().x)) / 100.0;
+    double deltaY = Math.round(100 * (getY() - getLastPos().y)) / 100.0;
 
-    Point<Double> moved = new Point<>(deltaX,deltaY);
+    Point<Double> moved = new Point<>(deltaX, deltaY);
 
     if (onGround) {
-      setSpeed(deltaX*(1-friction),deltaY);
+      setSpeed(deltaX * (1 - friction), deltaY);
     } else {
-      setSpeed(deltaX*(1-airFriction),deltaY*(1-airFriction));
+      setSpeed(deltaX * (1 - airFriction), deltaY * (1 - airFriction));
     }
 
     return moved;

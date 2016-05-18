@@ -1,5 +1,3 @@
-
-
 import javafx.scene.paint.Color;
 
 public class ColorPoint extends WorldObject {

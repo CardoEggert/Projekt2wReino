@@ -1,5 +1,3 @@
-
-
 public class Block extends WorldTile {
   /*
   Põhiblokk, millest maailm ehitatakse.
@@ -9,7 +7,7 @@ public class Block extends WorldTile {
 
   public Block(int x, int y, int size) {
     super(x, y);
-    this.box = new BoundingBox(x,y,size,size);
+    this.box = new BoundingBox(x, y, size, size);
     this.size = size;
   }
 

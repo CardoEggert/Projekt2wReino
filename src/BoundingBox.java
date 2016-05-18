@@ -1,5 +1,3 @@
-
-
 public class BoundingBox {
   int x;
   int y;
@@ -35,7 +33,7 @@ public class BoundingBox {
     return ((x + width) >= px &&
             x <= px &&
             (y + height) >= py &&
-            y <= py );
+            y <= py);
   }
 }
 
