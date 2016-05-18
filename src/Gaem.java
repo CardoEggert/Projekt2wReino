@@ -133,9 +133,9 @@ public class Gaem extends Application
     this.primaryStage = primaryStage;
 
     Random rand = new Random();
-    int nr = rand.nextInt(new File("C:\\Users\\CardoK\\IdeaProjects\\Projekt2v\\levels").list().length);
+    int nr = rand.nextInt(new File("levels").list().length);
 
-    World world = new World("C:\\Users\\CardoK\\IdeaProjects\\Projekt2v\\levels\\level"+ nr, blockSize);
+    World world = new World("levels/level"+ nr, blockSize);
     createGui(world);
     createEventHandlers();
 
