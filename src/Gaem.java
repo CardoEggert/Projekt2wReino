@@ -156,7 +156,7 @@ public class Gaem extends Application {
         //label.setText(String.format("Delta time: %.2f", delta_time));
 
         // TEST LOW FPS:
-        //for (int i = 0; i < 18000000; i++) { int a = i/10; }
+        //for (int i = 0; i < 60000000; i++) { int a = i*10; if (a==10000) System.out.println("low_fps"); }
 
         // Tausta joonistamine
         gc.setFill(Color.WHITE);
