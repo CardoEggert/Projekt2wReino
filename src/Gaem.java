@@ -140,8 +140,8 @@ public class Gaem extends Application {
     createEventHandlers();
 
     Player.gc = gc;
-    Player.setWorld(world);
     Player player = new Player(200, 200);
+    player.setWorld(world);
 
     final int maxage = 100;
     ColorPoint.maxage = maxage;

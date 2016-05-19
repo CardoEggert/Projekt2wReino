@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class World {
   List<Block> blocks = new ArrayList<>();
   Point<Integer> worldSize = new Point<>(0,0);
+  Point<Integer> playerPos = new Point<>(0,0);
   int gridSize;
 
   public World(String level, int gridSize) {
@@ -25,6 +26,9 @@ public class World {
             blocks.add(new Block(x * gridSize, y * gridSize, gridSize));
           } else if (c == '@') {
             blocks.add(new BlockIce(x * gridSize, y * gridSize, gridSize));
+          } else if (c == 'P') {
+            playerPos.x = x * gridSize;
+            playerPos.y = y * gridSize;
           }
           x++;
         }

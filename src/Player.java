@@ -19,8 +19,9 @@ public class Player extends WorldObject {
     setSpeed(0, 0);
   }
 
-  public static void setWorld(World world) {
+  public void setWorld(World world) {
     Player.world = world;
+    setPos(world.playerPos.x+10, world.playerPos.y);
   }
 
   public Point<Double> getLastPos() {
